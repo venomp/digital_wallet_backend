@@ -29,7 +29,7 @@ public class AuthServiceImpl implements AuthService {
         this.userRepository = userRepository;
         this.encoder = encoder;
         this.jwtService = jwtService;
-        // FIX: wallet creation responsibility moved here from AuthController
+        
         this.walletService = walletService;
     }
 
@@ -37,7 +37,7 @@ public class AuthServiceImpl implements AuthService {
     @Transactional
     public AuthResponse register(RegisterRequest request) {
 
-        // FIX: throw typed exception — was returning a silent success-shaped error body
+        
         if (userRepository.existsByEmail(request.getEmail())) {
             throw new ResourceAlreadyExistsException("Email already registered");
         }
@@ -45,13 +45,13 @@ public class AuthServiceImpl implements AuthService {
         UserEntity userEntity = new UserEntity();
         userEntity.setEmail(request.getEmail());
         userEntity.setPhoneNumber(request.getPhoneNumber());
-        // FIX: was calling setfullName (wrong casing) — now setFullName
+        
         userEntity.setFullName(request.getFullName());
         userEntity.setPassword(encoder.encode(request.getPassword()));
 
         UserEntity saved = userRepository.save(userEntity);
 
-        // FIX: wallet creation moved from AuthController into this service (SRP)
+    
         walletService.createWallet(saved.getId(), "INR");
 
         AuthResponse response = new AuthResponse();
