@@ -87,4 +87,42 @@ A production-ready RESTful wallet backend built with Spring Boot 3, Spring Secur
 ```
 spring-boot  java  rest-api  jwt  mysql  spring-security  wallet  backend
 ```
+### DB Query
+
+```
+
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255),
+    phone_number VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE users (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    full_name VARCHAR(255),
+    phone_number VARCHAR(20),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+
+CREATE TABLE transactions (
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+
+    from_user_id BIGINT NOT NULL,
+    to_user_id BIGINT NOT NULL,
+
+    amount DECIMAL(19,2) NOT NULL,
+
+    status VARCHAR(20) NOT NULL,
+
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+```
 
